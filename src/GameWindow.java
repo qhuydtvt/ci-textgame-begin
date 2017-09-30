@@ -25,6 +25,8 @@ public class GameWindow extends JFrame {
 
     private long lastTimeUpdate = -1;
 
+    private GameCanvas canvas;
+
     public GameWindow() {
         setupFont();
         setupPanels();
@@ -36,6 +38,9 @@ public class GameWindow extends JFrame {
     }
 
     private void setupPanels() {
+        canvas = new GameCanvas();
+        setContentPane(canvas);
+
         TextScreen textScreenPanel = new TextScreen();
         textScreenPanel.setColor(Color.BLACK);
         textScreenPanel.getSize().set(
@@ -107,6 +112,7 @@ public class GameWindow extends JFrame {
                 GameObject.runAll();
                 InputManager.instance.run();
                 render(backBufferGraphics);
+                canvas.backRender();
                 repaint();
             }
         }

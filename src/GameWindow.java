@@ -19,10 +19,6 @@ import static java.lang.System.nanoTime;
  * Created by huynq on 7/28/17.
  */
 public class GameWindow extends JFrame {
-
-    private BufferedImage backBufferImage;
-    private Graphics2D backBufferGraphics;
-
     private long lastTimeUpdate = -1;
 
     private GameCanvas canvas;
@@ -96,9 +92,6 @@ public class GameWindow extends JFrame {
                 System.exit(0);
             }
         });
-
-        backBufferImage = new BufferedImage(this.getWidth(),this.getHeight(), BufferedImage.TYPE_INT_ARGB);
-        backBufferGraphics = (Graphics2D) backBufferImage.getGraphics();
     }
 
     public void gameLoop() {
@@ -111,23 +104,8 @@ public class GameWindow extends JFrame {
                 lastTimeUpdate = currentTime;
                 GameObject.runAll();
                 InputManager.instance.run();
-                render(backBufferGraphics);
                 canvas.backRender();
-                repaint();
             }
         }
-    }
-
-    private void render(Graphics2D g2d) {
-        g2d.setFont(Settings.DEFAULT_FONT);
-        g2d.setColor(Color.BLACK);
-        g2d.fillRect(0, 0, Settings.SCREEN_WIDTH, Settings.SCREEN_HEIGHT);
-
-        GameObject.renderAll(g2d);
-    }
-
-    @Override
-    public void paint(Graphics g) {
-        g.drawImage(backBufferImage, 0, 0, null);
     }
 }

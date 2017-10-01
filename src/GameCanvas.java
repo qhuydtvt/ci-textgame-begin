@@ -27,6 +27,7 @@ public class GameCanvas extends JPanel {
         synchronized(this.renderLock) {
             Graphics2D g2d = this.backBufferGraphics;
             GameObject.renderAll(g2d);
+            repaint();
         }
     }
 
